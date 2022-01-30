@@ -1,0 +1,15 @@
+{
+  "name": "travel-web-nodejs",
+  "version": "1.0.0",
+  "description": "Just a Travel WebPage",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "DevBam",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.2",
+    "express3-handlebars": "^0.5.2"
+  }
+}
