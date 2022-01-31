@@ -7,6 +7,8 @@ const handlebars = require('express3-handlebars').create({ defaultLayout: 'main'
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars')
 
+app.use(express.static(__dirname + '/public'))
+
 
 
 //routes
@@ -15,8 +17,20 @@ app.get('/', (req, res) => {
     res.render('home')
 });
 
+//show random quotes(use without s in the view)
+let quotes = [
+    'You are blessed',
+    'The Lord is your shepherd',
+    'The Lord is with me',
+    'Halleluyah Kashope',
+    'Fear Not'
+]
+
+
 app.get('/about', (req, res) => {
-    res.render('about')
+    let randomQuotes = quotes[Math.floor(Math.random() * quotes.length)]
+
+    res.render('about', { quote: randomQuotes })
 })
 
 //customize my 404 page
