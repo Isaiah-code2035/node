@@ -16,13 +16,20 @@
 
     {{#if showTests}}
     <div id="mocha"></div>
-    <script src=""></script>
-    <script src=""></script>
+    <script src="/node_modules/mocha/mocha.js"></script>
+    <script src="/node_modules/chai/chai.js"></script>
 <script>
     mocha.ui('tdd');
     var.assert = chai.assert;
-
 </script>
+
+<script src="/qa/tests-global.js"></script>
+{{#if pageTestScript}}
+<script src="{{pageTestScript}}"></script>
+{{/if}}
+<script>mocha.run();</script>
+
+
 
 </body>
 </html>
