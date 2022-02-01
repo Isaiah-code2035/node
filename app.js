@@ -10,26 +10,34 @@ app.set('view engine', 'handlebars')
 
 app.use(express.static(__dirname + '/public'))
 
+//middleware for showing tests
+app.use(function(req, res, next) {
+    res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1';
+    next();
+
+
+})
+
 
 
 //routes
-
 app.get('/', (req, res) => {
     res.render('home')
 });
 
+
 //show random quotes(use without s in the view)
-let quotes = [
-    'You are blessed',
-    'The Lord is your shepherd',
-    'The Lord is with me',
-    'Halleluyah Kashope',
-    'Fear Not'
-]
+// let quotes = [
+//     'You are blessed',
+//     'The Lord is your shepherd',
+//     'The Lord is with me',
+//     'Halleluyah Kashope',
+//     'Fear Not'
+// ]
 
 
 app.get('/about', (req, res) => {
-    let randomQuotes = quotes[Math.floor(Math.random() * quotes.length)]
+    // let randomQuotes = quotes[Math.floor(Math.random() * quotes.length)]
 
     res.render('about', { quote: quote.getQuotes() })
 })
