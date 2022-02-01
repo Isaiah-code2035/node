@@ -1,4 +1,5 @@
 const express = require('express');
+const quote = require('./lib/quote.js')
 const app = express();
 
 
@@ -30,7 +31,7 @@ let quotes = [
 app.get('/about', (req, res) => {
     let randomQuotes = quotes[Math.floor(Math.random() * quotes.length)]
 
-    res.render('about', { quote: randomQuotes })
+    res.render('about', { quote: quote.getQuotes() })
 })
 
 //customize my 404 page
