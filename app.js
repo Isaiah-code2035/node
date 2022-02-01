@@ -39,7 +39,11 @@ app.get('/', (req, res) => {
 app.get('/about', (req, res) => {
     // let randomQuotes = quotes[Math.floor(Math.random() * quotes.length)]
 
-    res.render('about', { quote: quote.getQuotes() })
+    res.render('about', {
+        quote: quote.getQuotes(),
+        pageTestScript: '/qa/tests-about.js'
+    })
+
 })
 
 //customize my 404 page
