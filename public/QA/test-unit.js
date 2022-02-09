@@ -1,4 +1,4 @@
-const quote = require('/lib/quote.js');
+const quote = require('./lib/quote.js');
 let expect = require('chai').expect;
 
 suite('Random Quotes Test', function() {
