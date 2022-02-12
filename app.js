@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const quote = require('./lib/quote.js')
+const formidable = require('formidable')
 const app = express();
 app.use(require('body-parser')())
 
@@ -9,11 +10,12 @@ const handlebars = require('express3-handlebars').create({ defaultLayout: 'main'
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars')
 
+
+//use public
 app.use(express.static(__dirname + '/public'))
 
-//add form 
+//add simple form
 app.get('/newsletter', function(req, res) {
-
 
     res.render('newsletter', { csrf: 'CSRF token is here' })
 })
@@ -28,6 +30,41 @@ app.post('/process', function(req, res) {
     res.redirect(303, '/thank-you')
 
 })
+
+
+//add form with image upload
+
+app.get('/contest/vacation-photo', function(req, res) {
+
+    let now = new Date()
+
+    res.render('contest/vacation-photo', {
+        year: now.getFullYear(),
+        month: now.getMonth()
+    })
+
+})
+
+
+app.post('/contest/vacation-photo/:year/:month', function(req, res, next) {
+
+    let form = new formidable.IncomingForm();
+
+    form.parse(req, function(err, fields, files) {
+
+
+        if (err) return res.redirect(303, '/error');
+
+        console.log('received fields:')
+        console.log(fields)
+        console.log('received files:')
+        console.log(files)
+        res.render('thank-you')
+
+    })
+})
+
+
 
 
 
