@@ -5,6 +5,8 @@ const formidable = require('formidable')
 const credentials = require('./credentials.js')
 const session = require('express-session');
 const app = express();
+const nodemailer = require('nodemailer');
+
 app.use(require('body-parser')());
 app.use(require('cookie-parser')(credentials.cookieSecret));
 app.use(require('express-session')());
@@ -14,6 +16,33 @@ const handlebars = require('express3-handlebars').create({ defaultLayout: 'main'
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars')
 
+//for sending mail using nodemailer
+
+let transporter = nodemailer.createTransport({
+    host: "smtp.mailtrap.io",
+    port: 2525,
+    auth: {
+
+    }
+});
+
+message = {
+    from: "oluwabamiseolanipekun@gmail.com",
+    to: "loluwoba@gmail.com",
+    subject: "Yo",
+    text: "Test Test"
+}
+
+
+transporter.sendMail(message, (err, info) => {
+    if (err) {
+        console.log(err)
+    } else {
+        console.log(info)
+    }
+})
+
+
 
 //use public
 app.use(express.static(__dirname + '/public'))
@@ -22,7 +51,7 @@ app.use(express.static(__dirname + '/public'))
 
 app.use(function(req, res, next) {
 
-    //transfer flash messae ad sfter delete it
+    //transfer flash message and after delete it
 
     res.locals.flash = req.session.flash;
     delete req.session.flash;
